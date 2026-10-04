@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>aXar Games</title>
+<title>Tap Arcade</title>
 <meta name="description" content="Free one-tap arcade games that run in your browser. No ads, no sign-up. Install them on your phone like an app.">
 <meta name="theme-color" content="#0E0F14">
 <link rel="manifest" href="manifest.webmanifest">
@@ -12,8 +12,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="aXar Games">
-<meta property="og:title" content="aXar Games">
+<meta name="apple-mobile-web-app-title" content="Tap Arcade">
+<meta property="og:title" content="Tap Arcade">
 <meta property="og:description" content="Free one-tap arcade games. No ads, no sign-up.">
 <meta property="og:image" content="icons/app-512.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -124,7 +124,7 @@
   <header>
     <div class="brand">
       <img src="icons/app-192.png" alt="">
-      <h1>aXar Games</h1>
+      <h1>Tap Arcade</h1>
     </div>
     <p class="lead">Free one-tap arcade games that run right in your browser. Pick one and play. Add this page to your home screen and it works like an app, even offline.</p>
     <div class="chips"><span class="chip">No ads</span><span class="chip">No sign-up</span><span class="chip">Works offline</span><span class="chip">Phone, tablet and computer</span></div>
@@ -147,7 +147,7 @@
   </footer>
 </div>
 
-<div class="install" id="install" role="dialog" aria-label="Install aXar Games">
+<div class="install" id="install" role="dialog" aria-label="Install Tap Arcade">
   <img src="icons/app-192.png" alt="">
   <div class="t" id="install-text"></div>
   <div class="acts">
@@ -277,10 +277,10 @@ function show(mode) {
   if (mode === 'ios') {
     box.classList.add('ios');
     const share = '<svg class="share" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M8 7l4-4 4 4M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg>';
-    text.innerHTML = `<b>Install aXar Games</b><span>Tap ${share} Share below, then <b style="display:inline;font-size:inherit;color:var(--text)">Add to Home Screen</b>.</span>`;
+    text.innerHTML = `<b>Install Tap Arcade</b><span>Tap ${share} Share below, then <b style="display:inline;font-size:inherit;color:var(--text)">Add to Home Screen</b>.</span>`;
     go.style.display = 'none';
   } else {
-    text.innerHTML = '<b>Install aXar Games</b><span>Play from your home screen, even offline.</span>';
+    text.innerHTML = '<b>Install Tap Arcade</b><span>Play from your home screen, even offline.</span>';
   }
   box.classList.add('show');
 }
