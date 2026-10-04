@@ -22,7 +22,7 @@
 </head>
 <body>
 <main>
-  <div class="bar"><a href="./" aria-label="All games"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></a></div>
+  <div class="bar"><a href="./" data-back="/games/" aria-label="All games"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></a></div>
   <h1>Privacy</h1>
   <p>Last updated: October 4, 2026</p>
 
@@ -45,5 +45,6 @@
   <h2>Contact</h2>
   <p><a href="mailto:akarafilovski@gmail.com">akarafilovski@gmail.com</a></p>
 </main>
+<script>document.addEventListener('click',function(e){var a=e.target.closest('a[data-back]');if(!a||e.metaKey||e.ctrlKey||e.shiftKey)return;try{var r=new URL(document.referrer);if(r.origin===location.origin&&r.pathname.indexOf(a.dataset.back)===0&&history.length>1){e.preventDefault();history.back();}}catch(_){}});</script>
 </body>
 </html>

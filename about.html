@@ -34,7 +34,7 @@
 </head>
 <body>
 <main>
-  <div class="bar"><a href="./" aria-label="All games"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></a></div>
+  <div class="bar"><a href="./" data-back="/games/" aria-label="All games"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></a></div>
   <div class="head"><img src="icons/app-192.png" alt="" width="56" height="56"><h1>Tap Arcade</h1></div>
   <p>Free one-tap arcade games that run right in your browser. Pick one and play. Add this page to your home screen and it works like an app, even offline.</p>
   <div class="chips"><span class="chip">No ads</span><span class="chip">No sign-up</span><span class="chip">Works offline</span><span class="chip">Phone, tablet and computer</span></div>
@@ -43,6 +43,7 @@
   <p class="urlnote">https://axarapps.github.io/games/</p>
   <div class="links"><a href="https://axarapps.github.io/wellness/">Wellness Guides</a><a href="https://axarapps.github.io/radio/">World Radio</a><a href="privacy.html">Privacy</a><a href="mailto:akarafilovski@gmail.com">Contact</a></div>
 </main>
+<script>document.addEventListener('click',function(e){var a=e.target.closest('a[data-back]');if(!a||e.metaKey||e.ctrlKey||e.shiftKey)return;try{var r=new URL(document.referrer);if(r.origin===location.origin&&r.pathname.indexOf(a.dataset.back)===0&&history.length>1){e.preventDefault();history.back();}}catch(_){}});</script>
 <script>
 (function () {
   var url = "https://axarapps.github.io/games/", btn = document.getElementById('share'), t = document.getElementById('share-t');
