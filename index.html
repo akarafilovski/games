@@ -159,14 +159,13 @@ function store(key, v) { try { localStorage.setItem(key, v); } catch (e) {} }
 function esc(s) { return s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
 
 // Game cards; the best score comes from each game's own saved data.
-const grid = document.getElementById('grid');
 // Light game colors (Misfit) would wash out the white text, so those cards use a dark tint instead.
 function cardColor(hex) {
   const n = parseInt(hex.slice(1), 16);
   const lum = (0.299 * (n >> 16) + 0.587 * ((n >> 8) & 255) + 0.114 * (n & 255)) / 255;
   return lum > 0.5 ? '#3B4A63' : hex;
 }
-grid.innerHTML = GAMES.map((g) => {
+function card(g) {
   const best = parseInt(stored(g.id + '.scores.best') || '0', 10);
   return `<a class="card" href="${g.id}/" style="--c:${cardColor(g.bg)}">
     <img src="icons/${g.id}.png" alt="" width="76" height="76">
