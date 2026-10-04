@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>aXar Games</title>
+<meta name="description" content="Free one-tap arcade games that run in your browser. No ads, no sign-up. Install them on your phone like an app.">
+<meta name="theme-color" content="#0E0F14">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/app-192.png">
+<link rel="apple-touch-icon" href="icons/app-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="aXar Games">
+<meta property="og:title" content="aXar Games">
+<meta property="og:description" content="Free one-tap arcade games. No ads, no sign-up.">
+<meta property="og:image" content="icons/app-512.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0E0F14; --panel: #171922; --panel2: #1F2230; --line: #2A2E3F;
+    --text: #F3F4F8; --muted: #9CA1B5; --accent: #FFD23F; --accent-ink: #2A1F00;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 400 16px/1.5 'DM Sans', system-ui, sans-serif;
+    -webkit-tap-highlight-color: transparent; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: max(16px, env(safe-area-inset-top)) 16px 48px; }
+  header { padding: 28px 0 20px; }
+  .brand { display: flex; align-items: center; gap: 14px; }
+  .brand img { width: 52px; height: 52px; border-radius: 14px; }
+  h1 { font: 800 clamp(28px, 6vw, 40px)/1.05 'Unbounded', sans-serif; margin: 0; letter-spacing: -0.5px; }
+  .lead { color: var(--muted); margin: 14px 0 0; max-width: 560px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+  .chip { font-size: 13px; font-weight: 500; padding: 6px 12px; border-radius: 999px; background: var(--panel); border: 1px solid var(--line); color: var(--muted); }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 14px; margin-top: 10px; }
+  .card { position: relative; display: flex; gap: 14px; align-items: center; padding: 14px; border-radius: 22px; text-decoration: none; color: inherit;
+    background: linear-gradient(135deg, color-mix(in srgb, var(--c) 70%, #000) 0%, var(--panel) 75%); border: 1px solid var(--line);
+    transition: transform .15s ease, border-color .15s ease; }
+  .card:hover { transform: translateY(-2px); border-color: color-mix(in srgb, var(--c) 60%, #fff 10%); }
+  .card:active { transform: scale(.98); }
+  .card img { width: 76px; height: 76px; border-radius: 18px; flex: none; box-shadow: 0 6px 18px rgba(0,0,0,.35); }
+  .card .info { flex: 1; min-width: 0; }
+  .card h2 { font: 600 16px/1.2 'Unbounded', sans-serif; margin: 0 0 4px; }
+  .card p { margin: 0; font-size: 13.5px; line-height: 1.4; color: var(--muted); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .card .best { margin-top: 6px; font-size: 12px; font-weight: 700; color: var(--accent); }
+  .play { flex: none; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--accent); color: var(--accent-ink); }
+  .play svg { width: 18px; height: 18px; margin-left: 2px; }
+  .gp { display: inline-block; margin-top: 6px; font-size: 12px; color: var(--muted); text-decoration: underline; }
+
+  section { margin-top: 36px; }
+  h3 { font: 600 18px 'Unbounded', sans-serif; margin: 0 0 12px; }
+
+  .support { border-radius: 20px; background: var(--panel); border: 1px solid var(--line); overflow: hidden; }
+  .support > button { all: unset; box-sizing: border-box; cursor: pointer; width: 100%; display: flex; align-items: center; gap: 12px; padding: 16px; }
+  .support > button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+  .support .t { flex: 1; }
+  .support .t b { display: block; font-size: 16px; }
+  .support .t span { font-size: 13.5px; color: var(--muted); }
+  .support .chev { color: var(--accent); transition: transform .2s; }
+  .support.open .chev { transform: rotate(180deg); }
+  .support .body { display: none; padding: 0 16px 16px; }
+  .support.open .body { display: grid; gap: 12px; }
+  .token { background: var(--bg); border-radius: 14px; padding: 12px; display: grid; gap: 6px; }
+  .token .k { font-size: 13px; font-weight: 700; color: var(--accent); }
+  .token .row { display: flex; align-items: center; gap: 8px; }
+  .token code { flex: 1; font: 500 13px/1.4 ui-monospace, Menlo, monospace; word-break: break-all; }
+  .token button { all: unset; cursor: pointer; padding: 8px 12px; border-radius: 999px; background: var(--panel2); font-size: 13px; font-weight: 700; }
+  .note { font-size: 13px; color: var(--muted); margin: 0; }
+
+  footer { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 8px 18px; }
+  footer a { color: var(--muted); }
+
+  /* install prompt */
+  .install { position: fixed; left: 12px; right: 12px; bottom: max(12px, env(safe-area-inset-bottom)); max-width: 520px; margin: 0 auto; z-index: 10;
+    background: var(--panel2); border: 1px solid var(--line); border-radius: 20px; padding: 14px; box-shadow: 0 18px 50px rgba(0,0,0,.5);
+    display: none; gap: 12px; align-items: center; animation: up .3s ease; }
+  .install.show { display: flex; }
+  .install img { width: 48px; height: 48px; border-radius: 12px; }
+  .install .t { flex: 1; font-size: 14px; }
+  .install .t b { display: block; font-size: 15px; }
+  .install .t span { color: var(--muted); }
+  .install .share { display: inline-block; vertical-align: -3px; width: 16px; height: 16px; }
+  .install .acts { display: flex; flex-direction: column; gap: 6px; }
+  .btn { all: unset; cursor: pointer; text-align: center; padding: 9px 14px; border-radius: 999px; font-weight: 700; font-size: 14px; }
+  .btn.main { background: var(--accent); color: var(--accent-ink); }
+  .btn.ghost { color: var(--muted); font-weight: 500; font-size: 13px; padding: 4px 10px; }
+  .install.ios::after { content: ''; position: absolute; bottom: -8px; left: 50%; margin-left: -8px; width: 16px; height: 16px;
+    background: var(--panel2); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); transform: rotate(45deg); }
+  @keyframes up { from { transform: translateY(20px); opacity: 0; } to { transform: none; opacity: 1; } }
+  .toast { position: fixed; left: 50%; bottom: 90px; transform: translateX(-50%); background: var(--accent); color: var(--accent-ink);
+    padding: 10px 18px; border-radius: 999px; font-weight: 700; font-size: 14px; opacity: 0; transition: opacity .2s; pointer-events: none; z-index: 11; }
+  .toast.show { opacity: 1; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <img src="icons/app-192.png" alt="">
+      <h1>aXar Games</h1>
+    </div>
+    <p class="lead">Free one-tap arcade games that run right in your browser. Pick one and play. Add this page to your home screen and it works like an app, even offline.</p>
+    <div class="chips"><span class="chip">No ads</span><span class="chip">No sign-up</span><span class="chip">Works offline</span><span class="chip">Phone, tablet and computer</span></div>
+  </header>
+
+  <main>
+    <div class="grid" id="grid"></div>
+
+    <section>
+      <h3>Support</h3>
+      <div class="support" id="support">
+        <button type="button" aria-expanded="false" aria-controls="support-body">
+          <span class="t"><b>Support our work</b><span>Free, no ads. A small tip helps us make more games.</span></span>
+          <svg class="chev" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <div class="body" id="support-body">
+          <div class="token"><span class="k">Solana · SOL</span><div class="row"><code class="addr"></code><button type="button" class="copy">Copy</button></div><p class="note">Minimum &gt;0.001 SOL. Solana addresses are case sensitive.</p></div>
+          <div class="token"><span class="k">USD Coin · USDC (Solana network)</span><div class="row"><code class="addr"></code><button type="button" class="copy">Copy</button></div><p class="note">Minimum &gt;0.001 USDC. Solana addresses are case sensitive.</p></div>
+          <p class="note">Double-check every character of the address before sending. Crypto transfers cannot be reversed.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>© aXar</span>
+    <a href="privacy.html">Privacy</a>
+    <a href="mailto:akarafilovski@gmail.com">Contact</a>
+  </footer>
+</div>
+
+<div class="install" id="install" role="dialog" aria-label="Install aXar Games">
+  <img src="icons/app-192.png" alt="">
+  <div class="t" id="install-text"></div>
+  <div class="acts">
+    <button class="btn main" id="install-go" type="button">Install</button>
+    <button class="btn ghost" id="install-later" type="button">Not now</button>
+  </div>
+</div>
+<div class="toast" id="toast">Address copied</div>
+
+<script>
+const GAMES = [{"id": "orbit", "name": "Orbit Hop", "tagline": "Tap to leap from ring to ring. Skip rings for bonus points. How far can you go?", "bg": "#0B1437", "appId": "com.axar.orbit", "play": false}, {"id": "tower", "name": "Tower Stack", "tagline": "Tap to drop the block and stack it straight. Perfect drops build a streak.", "bg": "#1B1750", "appId": "com.axar.tower", "play": false}, {"id": "zig", "name": "Zig Zag Turn", "tagline": "Tap to turn at every corner and stay on the path. Perfect turns build a streak.", "bg": "#0B3B38", "appId": "com.axar.zig", "play": false}, {"id": "shapematcher", "name": "Shape Matcher", "tagline": "Tap the moment two shapes match. Quick taps score double. How fast are you?", "bg": "#15181C", "appId": "com.axar.shapematcher", "play": false}, {"id": "flip", "name": "Gravity Flip", "tagline": "Flip gravity to dodge blocks, slip through gates and chase close calls.", "bg": "#1B0A16", "appId": "com.axar.flip", "play": false}, {"id": "ringrunner", "name": "Ring Runner", "tagline": "Circle the track, switch lanes and dodge the blocks. Inner lanes pay more.", "bg": "#06201A", "appId": "com.axar.ringrunner", "play": false}, {"id": "pulsetap", "name": "Pulse Tap", "tagline": "Tap the instant each ring lands on its target. Perfect timing builds combos.", "bg": "#07070C", "appId": "com.axar.pulsetap", "play": false}, {"id": "bounceup", "name": "Bounce Up", "tagline": "Steer the bouncing ball up the platforms with one tap. Skip some to score more.", "bg": "#2A0A3A", "appId": "com.axar.bounceup", "play": false}, {"id": "smashdown", "name": "Smash Down", "tagline": "Hold to smash through colored rows. Chain combos, but never touch the black.", "bg": "#0A4A9E", "appId": "com.axar.smashdown", "play": false}, {"id": "echopads", "name": "Echo Pads", "tagline": "Watch the pads light up, then repeat the pattern. How long can you go?", "bg": "#1A1410", "appId": "com.axar.echopads", "play": false}, {"id": "tapbeat", "name": "Tap Beat", "tagline": "Tap the notes as they hit the ring. Hold the long ones. Keep the beat going.", "bg": "#0C0C10", "appId": "com.axar.tapbeat", "play": false}, {"id": "pegdrop", "name": "Peg Drop", "tagline": "Tap to drop the ball through the pegs. Land in a big slot to win a ball back.", "bg": "#120B22", "appId": "com.axar.pegdrop", "play": false}, {"id": "splitstep", "name": "Split Step", "tagline": "Switch between one big ball and two small ones to slip through every gate.", "bg": "#160A1E", "appId": "com.axar.splitstep", "play": false}, {"id": "misfit", "name": "Misfit", "tagline": "Find the shape that is different before time runs out. The gap keeps shrinking.", "bg": "#E8EDF2", "appId": "com.axar.misfit", "play": false}, {"id": "sortit", "name": "Sort It", "tagline": "Tap left or right to send each item to its bin. Every ten sorts the bins swap.", "bg": "#171F2C", "appId": "com.axar.sortit", "play": false}, {"id": "stoptheclock", "name": "Stop the Clock", "tagline": "Stop the hand inside the green arc. Hit the bullseye for double points.", "bg": "#0C1A16", "appId": "com.axar.stoptheclock", "play": false}];
+const WALLET = '8x1G15KgVzHdTeVhULGPThfVfP68FeLiuTEy4AFmJRrT';
+
+function stored(key) { try { return localStorage.getItem(key); } catch (e) { return null; } }
+function store(key, v) { try { localStorage.setItem(key, v); } catch (e) {} }
+function esc(s) { return s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+
+// Game cards; the best score comes from each game's own saved data.
+const grid = document.getElementById('grid');
+// Light game colors (Misfit) would wash out the white text, so those cards use a dark tint instead.
+function cardColor(hex) {
+  const n = parseInt(hex.slice(1), 16);
+  const lum = (0.299 * (n >> 16) + 0.587 * ((n >> 8) & 255) + 0.114 * (n & 255)) / 255;
+  return lum > 0.5 ? '#3B4A63' : hex;
+}
+grid.innerHTML = GAMES.map((g) => {
+  const best = parseInt(stored(g.id + '.scores.best') || '0', 10);
+  return `<a class="card" href="${g.id}/" style="--c:${cardColor(g.bg)}">
+    <img src="icons/${g.id}.png" alt="" width="76" height="76">
+    <div class="info"><h2>${esc(g.name)}</h2><p>${esc(g.tagline)}</p>${best > 0 ? `<div class="best">Your best: ${best}</div>` : ''}${g.play ? `<span class="gp" data-app="${g.appId}">Also on Google Play</span>` : ''}</div>
+    <span class="play" aria-label="Play ${esc(g.name)}"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12-7.5a1 1 0 0 0 0-1.72l-12-7.5A1 1 0 0 0 7 4.5z"/></svg></span>
+  </a>`;
+}).join('');
+grid.addEventListener('click', (e) => {
+  const gp = e.target.closest('.gp');
+  if (!gp) return;
+  e.preventDefault();
+  window.open('https://play.google.com/store/apps/details?id=' + gp.dataset.app, '_blank', 'noopener');
+});
+
+// Support card
+const support = document.getElementById('support');
+support.querySelector('button').addEventListener('click', (e) => {
+  const open = support.classList.toggle('open');
+  e.currentTarget.setAttribute('aria-expanded', String(open));
+});
+support.querySelectorAll('.addr').forEach((el) => { el.textContent = WALLET; });
+const toast = document.getElementById('toast');
+function showToast(text) {
+  toast.textContent = text;
+  toast.classList.add('show');
+  clearTimeout(showToast.t);
+  showToast.t = setTimeout(() => toast.classList.remove('show'), 1800);
+}
+support.querySelectorAll('.copy').forEach((b) => b.addEventListener('click', () => {
+  const done = () => showToast('Address copied');
+  if (navigator.clipboard) navigator.clipboard.writeText(WALLET).then(done, done); else done();
+}));
+
+// Install prompt: Android/Chrome gets a real Install button; iPhone gets the Share > Add to Home Screen hint.
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
+const box = document.getElementById('install');
+const text = document.getElementById('install-text');
+const go = document.getElementById('install-go');
+const standalone = matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+const ios = /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+const snoozed = Date.now() < parseInt(stored('axar.installSnooze') || '0', 10);
+let deferred = null;
+
+function show(mode) {
+  if (standalone || snoozed) return;
+  if (mode === 'ios') {
+    box.classList.add('ios');
+    const share = '<svg class="share" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M8 7l4-4 4 4M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg>';
+    text.innerHTML = `<b>Install aXar Games</b><span>Tap ${share} Share below, then <b style="display:inline;font-size:inherit;color:var(--text)">Add to Home Screen</b>.</span>`;
+    go.style.display = 'none';
+  } else {
+    text.innerHTML = '<b>Install aXar Games</b><span>Play from your home screen, even offline.</span>';
+  }
+  box.classList.add('show');
+}
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferred = e;
+  setTimeout(() => show('android'), 4000);
+});
+if (ios && !standalone) setTimeout(() => show('ios'), 4000);
+go.addEventListener('click', async () => {
+  box.classList.remove('show');
+  if (!deferred) return;
+  deferred.prompt();
+  await deferred.userChoice.catch(() => {});
+  deferred = null;
+});
+document.getElementById('install-later').addEventListener('click', () => {
+  box.classList.remove('show');
+  store('axar.installSnooze', String(Date.now() + 5 * 86400000));
+});
+window.addEventListener('appinstalled', () => box.classList.remove('show'));
+</script>
+</body>
+</html>
