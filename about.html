@@ -11,7 +11,9 @@
 <style>
   :root{--bg:#0E0F14; --text:#F3F4F8; --muted:#9CA1B5; --accent:#FFD23F; --on-accent:#000; --panel:#171923; --line:rgba(255,255,255,.1);}
   body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 system-ui, sans-serif; }
-  main { max-width: 680px; margin: 0 auto; padding: 24px 16px 56px; }
+  main { max-width: 680px; margin: 0 auto; padding: 0 16px 56px; }
+  .bar { position: sticky; top: 0; z-index: 10; margin: 0 -16px; padding: max(10px, env(safe-area-inset-top)) 16px 10px; background: color-mix(in srgb, var(--bg) 94%, transparent); }
+  .bar a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 700; text-decoration: none; }
   .head { display: flex; align-items: center; gap: 14px; margin: 14px 0 6px; }
   .head img { width: 56px; height: 56px; border-radius: 14px; }
   h1 { font-size: 28px; margin: 0; }
@@ -30,7 +32,7 @@
 </head>
 <body>
 <main>
-  <p><a href="./">← All games</a></p>
+  <div class="bar"><a href="./">← All games</a></div>
   <div class="head"><img src="icons/app-192.png" alt="" width="56" height="56"><h1>Tap Arcade</h1></div>
   <p>Free one-tap arcade games that run right in your browser. Pick one and play. Add this page to your home screen and it works like an app, even offline.</p>
   <div class="chips"><span class="chip">No ads</span><span class="chip">No sign-up</span><span class="chip">Works offline</span><span class="chip">Phone, tablet and computer</span></div>

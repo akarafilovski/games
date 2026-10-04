@@ -9,7 +9,9 @@
 <style>
   :root { --bg: #0E0F14; --text: #F3F4F8; --muted: #9CA1B5; --accent: #FFD23F; }
   body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 system-ui, sans-serif; }
-  main { max-width: 680px; margin: 0 auto; padding: 32px 16px 56px; }
+  main { max-width: 680px; margin: 0 auto; padding: 0 16px 56px; }
+  .bar { position: sticky; top: 0; z-index: 10; margin: 0 -16px; padding: max(10px, env(safe-area-inset-top)) 16px 10px; background: color-mix(in srgb, var(--bg) 94%, transparent); }
+  .bar a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 700; text-decoration: none; }
   h1 { font-size: 28px; margin: 0 0 4px; }
   h2 { font-size: 18px; margin: 28px 0 6px; }
   p, li { color: var(--muted); }
@@ -18,7 +20,7 @@
 </head>
 <body>
 <main>
-  <p><a href="./">← All games</a></p>
+  <div class="bar"><a href="./">← All games</a></div>
   <h1>Privacy</h1>
   <p>Last updated: October 4, 2026</p>
 
