@@ -7,10 +7,11 @@
 <meta name="theme-color" content="#0E0F14">
 <link rel="icon" href="icons/app-192.png">
 <style>
-  :root { --bg: #0E0F14; --text: #F3F4F8; --muted: #9CA1B5; --accent: #FFD23F; }
+  :root { --bg: #0E0F14; --text: #F3F4F8; --muted: #9CA1B5; --panel: #171923; --line: rgba(255,255,255,.12); --accent: #FFD23F; }
   body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 system-ui, sans-serif; }
   main { max-width: 680px; margin: 0 auto; padding: 0 16px 56px; }
-  .bar { position: sticky; top: 0; z-index: 10; margin: 0 -16px; padding: max(10px, env(safe-area-inset-top)) 16px 10px; background: color-mix(in srgb, var(--bg) 94%, transparent); }
+  .bar { position: sticky; top: 0; z-index: 10; margin: 0 -16px; padding: max(10px, env(safe-area-inset-top)) 16px 10px; background: color-mix(in srgb, var(--bg) 94%, transparent);  display: flex; align-items: center; gap: 12px; }
+  .bt { font-size: 20px; font-weight: 700; }
   .bar a { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--panel); border: 1px solid var(--line); color: var(--text); }
   .bar svg { width: 22px; height: 22px; }
   .bar a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
@@ -22,8 +23,8 @@
 </head>
 <body>
 <main>
-  <div class="bar"><a href="./" data-back="/games/" aria-label="All games"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></a></div>
-  <h1>Privacy</h1>
+  <div class="bar"><a href="./" data-back="/games/" aria-label="All games"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></a><span class="bt">Privacy</span></div>
+  
   <p>Last updated: October 4, 2026</p>
 
   <h2>What we collect</h2>
