@@ -29,7 +29,7 @@
   body { margin: 0; background: var(--bg); color: var(--text); font: 400 16px/1.5 'DM Sans', system-ui, sans-serif;
     -webkit-tap-highlight-color: transparent; }
   .wrap { max-width: 1080px; margin: 0 auto; padding: max(16px, env(safe-area-inset-top)) 16px 48px; }
-  header { padding: 28px 0 20px; }
+  header { padding: 18px 0 20px; }
   .brand { display: flex; align-items: center; gap: 14px; }
   .brand img { width: 52px; height: 52px; border-radius: 14px; }
   h1 { font: 800 clamp(28px, 6vw, 40px)/1.05 'Unbounded', sans-serif; margin: 0; letter-spacing: -0.5px; }
@@ -55,22 +55,42 @@
   section { margin-top: 36px; }
   h3 { font: 600 18px 'Unbounded', sans-serif; margin: 0 0 12px; }
 
-  .support { border-radius: 20px; background: var(--panel); border: 1px solid var(--line); overflow: hidden; }
-  .support > button { all: unset; box-sizing: border-box; cursor: pointer; width: 100%; display: flex; align-items: center; gap: 12px; padding: 16px; }
-  .support > button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
-  .support .t { flex: 1; }
-  .support .t b { display: block; font-size: 16px; }
-  .support .t span { font-size: 13.5px; color: var(--muted); }
-  .support .chev { color: var(--accent); transition: transform .2s; }
-  .support.open .chev { transform: rotate(180deg); }
-  .support .body { display: none; padding: 0 16px 16px; }
-  .support.open .body { display: grid; gap: 12px; }
-  .token { background: var(--bg); border-radius: 14px; padding: 12px; display: grid; gap: 6px; }
-  .token .k { font-size: 13px; font-weight: 700; color: var(--accent); }
-  .token .row { display: flex; align-items: center; gap: 8px; }
-  .token code { flex: 1; font: 500 13px/1.4 ui-monospace, Menlo, monospace; word-break: break-all; }
-  .token button { all: unset; cursor: pointer; padding: 8px 12px; border-radius: 999px; background: var(--panel2); font-size: 13px; font-weight: 700; }
-  .note { font-size: 13px; color: var(--muted); margin: 0; }
+  .support { border-radius: 22px; background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 22%, #111) 0%, #141414 70%); border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent); overflow: hidden; }
+  .support .head { all: unset; box-sizing: border-box; cursor: pointer; width: 100%; display: flex; align-items: center; gap: 12px; padding: 12px 14px; }
+  .support .head:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+  .support .heart { width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; flex: none; background: var(--accent); color: #000; animation: beat 2.4s ease-in-out infinite; }
+  .support .heart svg { width: 20px; height: 20px; }
+  @keyframes beat { 0%, 70%, 100% { transform: scale(1); } 80% { transform: scale(1.12); } 90% { transform: scale(1.02); } }
+  .support .t { flex: 1; min-width: 0; } .support .t b { display: block; font: 700 15px 'Sora', sans-serif; } .support .t span { font-size: 12.5px; color: var(--muted); }
+  .support .chev { color: var(--accent); transition: transform .25s; flex: none; } .support.open .chev { transform: rotate(180deg); }
+  .support .body { display: none; padding: 0 12px 12px; } .support.open .body { display: block; animation: drop .25s ease; }
+  @keyframes drop { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+  .dep { --by: #FCD535; --card: #2B3139; --card2: #1E2329; display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 4px; border-radius: 12px; background: var(--card2); }
+  .tab { all: unset; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 8px; border-radius: 9px; font: 700 14px 'Figtree', sans-serif; color: #848E9C; transition: background .2s, color .2s; }
+  .tab.on { background: var(--card); color: var(--by); }
+  .tab:focus-visible { outline: 2px solid var(--by); outline-offset: 2px; }
+  .coin { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font: 800 12px 'Sora', sans-serif; font-style: normal; flex: none; color: #fff; }
+  .coin.sol { background: linear-gradient(135deg, #9945FF, #14F195); color: #000; } .coin.usdc { background: #2775CA; }
+  .dep .k { display: block; font-size: 13px; color: #848E9C; }
+  .dep .v { display: block; font-weight: 700; font-size: 16px; color: #EAECEF; margin-top: 4px; }
+  .dep .dcard { background: var(--card); border-radius: 16px; padding: 18px 16px 16px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .qrbox { display: grid; justify-items: center; margin-bottom: 20px; }
+  .qrbox img { width: 180px; height: 180px; border-radius: 18px; background: #fff; padding: 10px; }
+  .addrrow { display: flex; align-items: center; gap: 12px; margin-top: 6px; }
+  .addr3 { flex: 1; min-width: 0; container-type: inline-size; font: 600 15px/1.45 ui-monospace, 'SF Mono', Menlo, Consolas, monospace; color: #EAECEF; }
+  .addr3 span { display: block; white-space: nowrap; overflow: hidden; font-size: min(18px, calc(100cqw / 13.9)); }
+  .addr3 i { font-style: normal; color: var(--by); }
+  .cbtn { all: unset; cursor: pointer; flex: none; width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; background: #363D47; color: #EAECEF; transition: transform .1s, background .2s; }
+  .cbtn svg { width: 22px; height: 22px; } .cbtn:active { transform: scale(.92); } .cbtn:focus-visible { outline: 2px solid var(--by); outline-offset: 2px; }
+  .cbtn .i-ok { display: none; } .cbtn.ok { background: var(--by); color: #000; } .cbtn.ok .i-copy { display: none; } .cbtn.ok .i-ok { display: block; }
+  .redn { margin: 10px 0 0; font-size: 13.5px; line-height: 1.35; color: #F6465D; }
+  .dep hr { border: 0; border-top: 1px solid #3A424D; margin: 16px 0; width: 100%; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 12px; }
+  .grid2 .v { font-size: 15px; }
+  .fine { margin: 16px 0 0; font-size: 13px; line-height: 1.45; color: #848E9C; }
+  .fixed { position: sticky; top: 0; z-index: 15; margin: 0 -16px; padding: max(8px, env(safe-area-inset-top)) 16px 10px; background: rgba(14,15,20,.94); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+  .fixed .support .body { max-height: 64vh; overflow-y: auto; }
 
   footer { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 8px 18px; }
   footer a { color: var(--muted); }
@@ -100,6 +120,7 @@
 </head>
 <body>
 <div class="wrap">
+  <div class="fixed" id="support-host"></div>
   <header>
     <div class="brand">
       <img src="icons/app-192.png" alt="">
@@ -117,20 +138,6 @@
       <div class="grid" id="kids"></div>
     </section>
 
-    <section>
-      <h3>Support</h3>
-      <div class="support" id="support">
-        <button type="button" aria-expanded="false" aria-controls="support-body">
-          <span class="t"><b>Support our work</b><span>Free, no ads. A small tip helps us make more games.</span></span>
-          <svg class="chev" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
-        </button>
-        <div class="body" id="support-body">
-          <div class="token"><span class="k">Solana · SOL</span><div class="row"><code class="addr"></code><button type="button" class="copy">Copy</button></div><p class="note">Minimum &gt;0.001 SOL. Solana addresses are case sensitive.</p></div>
-          <div class="token"><span class="k">USD Coin · USDC (Solana network)</span><div class="row"><code class="addr"></code><button type="button" class="copy">Copy</button></div><p class="note">Minimum &gt;0.001 USDC. Solana addresses are case sensitive.</p></div>
-          <p class="note">Double-check every character of the address before sending. Crypto transfers cannot be reversed.</p>
-        </div>
-      </div>
-    </section>
   </main>
 
   <footer>
@@ -187,24 +194,73 @@ document.querySelector('main').addEventListener('click', (e) => {
   window.open('https://play.google.com/store/apps/details?id=' + gp.dataset.app, '_blank', 'noopener');
 });
 
-// Support card
-const support = document.getElementById('support');
-support.querySelector('button').addEventListener('click', (e) => {
-  const open = support.classList.toggle('open');
-  e.currentTarget.setAttribute('aria-expanded', String(open));
-});
-support.querySelectorAll('.addr').forEach((el) => { el.textContent = WALLET; });
-const toast = document.getElementById('toast');
-function showToast(text) {
-  toast.textContent = text;
-  toast.classList.add('show');
-  clearTimeout(showToast.t);
-  showToast.t = setTimeout(() => toast.classList.remove('show'), 1800);
+const $ = (id) => document.getElementById(id);
+const ICON = { chev: '<svg class="chev" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>' };
+const TOKENS = {
+  sol: { coin: 'S', name: 'Solana', ticker: 'SOL', network: 'Solana', min: '0.001 SOL', qr: 'icons/qr-sol.png', note: 'Please note that SOL addresses are case sensitive.' },
+  usdc: { coin: '$', name: 'USD Coin', ticker: 'USDC', network: 'Solana', min: '0.001 USDC', qr: 'icons/qr-usdc.png', note: 'USDC is sent on the Solana network. The address is case sensitive.' },
+};
+function supportHtml() {
+  const tab = (id) => `<button type="button" class="tab" data-token="${id}" role="tab"><i class="coin ${id}">${TOKENS[id].coin}</i>${TOKENS[id].ticker}</button>`;
+  const hl = (t) => `<b>${t}</b>`;
+  return `<div class="support" id="support">
+    <button type="button" class="head" aria-expanded="false"><span class="heart"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.2 2.7 4.5 6.3 4.5c2 0 3.7 1.1 4.6 2.7h2.2c.9-1.6 2.6-2.7 4.6-2.7 3.6 0 5.4 3.7 3.9 7.2C19.5 16.4 12 21 12 21z"/></svg></span>
+      <span class="t"><b>Support our work</b><span>Free, no ads. A tip keeps it running.</span></span>${ICON.chev}</button>
+    <div class="body"><div class="dep">
+      <div class="tabs" role="tablist">${tab('sol')}${tab('usdc')}</div>
+      <div class="dcard">
+        <div class="qrbox"><img id="dep-qr" src="icons/qr-sol.png" alt="QR code of the wallet address" width="180" height="180"></div>
+        <div class="k">Wallet address</div>
+        <div class="addrrow">
+          <div class="addr3" title="${WALLET}"><span><i>${WALLET.slice(0, 6)}</i>${WALLET.slice(6, 22)}</span><span>${WALLET.slice(22, -6)}<i>${WALLET.slice(-6)}</i></span></div>
+          <button type="button" class="cbtn" aria-label="Copy address"><svg class="i-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M4 16V6a2 2 0 0 1 2-2h10"/></svg><svg class="i-ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></button>
+        </div>
+        <p class="redn" id="dep-note"></p>
+        <hr>
+        <div class="grid2">
+          <div><span class="k">Token</span><span class="v" id="dep-token"></span></div>
+          <div><span class="k">Minimum</span><span class="v" id="dep-min"></span></div>
+          <div><span class="k">Address for</span><span class="v">SOL and USDC</span></div>
+          <div><span class="k">Network</span><span class="v">Solana</span></div>
+        </div>
+        <p class="fine">Double-check every character before sending. Crypto transfers cannot be reversed. Only send on the Solana network.</p>
+      </div>
+    </div></div></div>`;
 }
-support.querySelectorAll('.copy').forEach((b) => b.addEventListener('click', () => {
-  const done = () => showToast('Address copied');
-  if (navigator.clipboard) navigator.clipboard.writeText(WALLET).then(done, done); else done();
-}));
+function wireSupport() {
+  const root = $('support');
+  root.querySelector('.head').addEventListener('click', (e) => { const o = root.classList.toggle('open'); e.currentTarget.setAttribute('aria-expanded', String(o)); });
+  const pick = (id) => {
+    const t = TOKENS[id];
+    root.querySelectorAll('.tab').forEach((b) => { const on = b.dataset.token === id; b.classList.toggle('on', on); b.setAttribute('aria-selected', String(on)); });
+    $('dep-qr').src = t.qr;
+    $('dep-note').textContent = t.note;
+    $('dep-token').textContent = t.name + ' (' + t.ticker + ')';
+    $('dep-min').textContent = '>' + t.min;
+  };
+  root.querySelectorAll('.tab').forEach((b) => b.addEventListener('click', () => pick(b.dataset.token)));
+  pick('sol');
+  const copy = root.querySelector('.cbtn');
+  copy.addEventListener('click', () => {
+    const done = () => {
+      showToast('Address copied');
+      copy.classList.add('ok');
+      setTimeout(() => copy.classList.remove('ok'), 1800);
+    };
+    if (navigator.clipboard) navigator.clipboard.writeText(WALLET).then(done, done); else done();
+  });
+}
+
+
+$('support-host').innerHTML = supportHtml();
+wireSupport();
+const toastEl = document.getElementById('toast');
+function showToast(text) {
+  toastEl.textContent = text;
+  toastEl.classList.add('show');
+  clearTimeout(showToast.t);
+  showToast.t = setTimeout(() => toastEl.classList.remove('show'), 1800);
+}
 
 // Install prompt: Android/Chrome gets a real Install button; iPhone gets the Share > Add to Home Screen hint.
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
