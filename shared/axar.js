@@ -4,6 +4,7 @@
   let ctx = null;
   const buffers = [];
   const voices = new Map();
+  const clips = {};
   let nextVoice = 1;
 
   function audio() {
@@ -93,6 +94,46 @@
       src.start();
       return voice;
     },
+    soundForget(id) {
+      if (id >= 0) buffers[id] = null;
+    },
+
+    // Recorded clips (Tiny Toybox animal sounds): 'loading' until decoded, 'missing' if there is no file.
+    clipLoad(key, url) {
+      const c = audio();
+      if (!c || clips[key]) return;
+      clips[key] = 'loading';
+      fetch(url)
+        .then((r) => { if (!r.ok) throw new Error(r.status); return r.arrayBuffer(); })
+        .then((b) => new Promise((ok, fail) => c.decodeAudioData(b, ok, fail)))
+        .then((buf) => { clips[key] = buf; })
+        .catch(() => { clips[key] = 'missing'; });
+    },
+    clipPlay(key) {
+      const v = clips[key];
+      if (!v || v === 'missing') return false;
+      if (v === 'loading') return true;
+      const c = audio();
+      if (c.state !== 'running') return true;
+      const src = c.createBufferSource();
+      src.buffer = v;
+      src.connect(c.destination);
+      src.start();
+      return true;
+    },
+
+    // The browser's own voice (Web Speech). The toybox words are English.
+    speak(text, rate, pitch) {
+      const s = window.speechSynthesis;
+      if (!s || typeof SpeechSynthesisUtterance === 'undefined') return;
+      s.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'en-US';
+      u.rate = rate;
+      u.pitch = pitch;
+      s.speak(u);
+    },
+
     soundRate(voice, rate) {
       const src = voices.get(voice);
       if (src) src.playbackRate.value = rate;
