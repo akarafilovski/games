@@ -77,23 +77,23 @@
   .coin.sol { background: linear-gradient(135deg, #9945FF, #14F195); color: #000; } .coin.usdc { background: #2775CA; }
   .dep .k { display: block; font-size: 13px; color: #848E9C; }
   .dep .v { display: block; font-weight: 700; font-size: 16px; color: #EAECEF; margin-top: 4px; }
-  .dep .dcard { background: var(--card); border-radius: 16px; padding: 18px 16px 16px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 0; }
-  .qrbox { display: grid; justify-items: center; margin-bottom: 20px; }
-  .qrbox img { width: 180px; height: 180px; border-radius: 18px; background: #fff; padding: 10px; }
-  .addrrow { display: flex; align-items: center; gap: 12px; margin-top: 6px; }
+  .dep .dcard { background: var(--card); border-radius: 16px; padding: 12px 14px 12px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .qrbox { display: grid; justify-items: center; margin-bottom: 10px; }
+  .qrbox img { width: 132px; height: 132px; border-radius: 14px; background: #fff; padding: 6px; }
+  .addrrow { display: flex; align-items: center; gap: 10px; margin-top: 2px; }
   .addr3 { flex: 1; min-width: 0; container-type: inline-size; font: 600 15px/1.45 ui-monospace, 'SF Mono', Menlo, Consolas, monospace; color: #EAECEF; }
   .addr3 span { display: block; white-space: nowrap; overflow: hidden; font-size: min(18px, calc(100cqw / 13.9)); }
   .addr3 i { font-style: normal; color: var(--by); }
-  .cbtn { all: unset; cursor: pointer; flex: none; width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; background: #363D47; color: #EAECEF; transition: transform .1s, background .2s; }
+  .cbtn { all: unset; cursor: pointer; flex: none; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: #363D47; color: #EAECEF; transition: transform .1s, background .2s; }
   .cbtn svg { width: 22px; height: 22px; } .cbtn:active { transform: scale(.92); } .cbtn:focus-visible { outline: 2px solid var(--by); outline-offset: 2px; }
   .cbtn .i-ok { display: none; } .cbtn.ok { background: var(--by); color: #000; } .cbtn.ok .i-copy { display: none; } .cbtn.ok .i-ok { display: block; }
-  .redn { margin: 10px 0 0; font-size: 13.5px; line-height: 1.35; color: #F6465D; }
-  .dep hr { border: 0; border-top: 1px solid #3A424D; margin: 16px 0; width: 100%; }
-  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 12px; }
-  .grid2 .v { font-size: 15px; }
-  .fine { margin: 16px 0 0; font-size: 13px; line-height: 1.45; color: #848E9C; }
+  .redn { margin: 4px 0 0; font-size: 13px; line-height: 1.3; color: #F6465D; }
+  .dep hr { border: 0; border-top: 1px solid #3A424D; margin: 8px 0; width: 100%; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 12px; }
+  .grid2 .v { font-size: 14px; margin-top: 1px; }
+  .fine { margin: 8px 0 0; font-size: 12.5px; line-height: 1.4; color: #848E9C; }
   .fixed { position: sticky; top: 0; z-index: 15; margin: 0 -16px; padding: max(8px, env(safe-area-inset-top)) 16px 10px; background: rgba(14,15,20,.94); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
-  .fixed .support .body { max-height: 64vh; overflow-y: auto; }
+  .fixed .support .body { max-height: calc(100dvh - 92px); overflow-y: auto; }
 
   footer { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 8px 18px; }
   footer a { color: var(--muted); }
@@ -200,8 +200,8 @@ document.querySelector('main').addEventListener('click', (e) => {
 const $ = (id) => document.getElementById(id);
 const ICON = { chev: '<svg class="chev" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>' };
 const TOKENS = {
-  sol: { coin: 'S', name: 'Solana', ticker: 'SOL', network: 'Solana', min: '0.001 SOL', qr: 'icons/qr-sol.png', note: 'Please note that SOL addresses are case sensitive.' },
-  usdc: { coin: '$', name: 'USD Coin', ticker: 'USDC', network: 'Solana', min: '0.001 USDC', qr: 'icons/qr-usdc.png', note: 'USDC is sent on the Solana network. The address is case sensitive.' },
+  sol: { coin: 'S', name: 'Solana', ticker: 'SOL', network: 'Solana', min: '0.001 SOL', qr: 'icons/qr-sol.png', note: 'SOL addresses are case sensitive.' },
+  usdc: { coin: '$', name: 'USD Coin', ticker: 'USDC', network: 'Solana', min: '0.001 USDC', qr: 'icons/qr-usdc.png', note: 'Send USDC on the Solana network. Case sensitive.' },
 };
 function supportHtml() {
   const tab = (id) => `<button type="button" class="tab" data-token="${id}" role="tab"><i class="coin ${id}">${TOKENS[id].coin}</i>${TOKENS[id].ticker}</button>`;
@@ -212,7 +212,7 @@ function supportHtml() {
     <div class="body"><div class="dep">
       <div class="tabs" role="tablist">${tab('sol')}${tab('usdc')}</div>
       <div class="dcard">
-        <div class="qrbox"><img id="dep-qr" src="icons/qr-sol.png" alt="QR code of the wallet address" width="180" height="180"></div>
+        <div class="qrbox"><img id="dep-qr" src="icons/qr-sol.png" alt="QR code of the wallet address" width="132" height="132"></div>
         <div class="k">Wallet address</div>
         <div class="addrrow">
           <div class="addr3" title="${WALLET}"><span><i>${WALLET.slice(0, 6)}</i>${WALLET.slice(6, 22)}</span><span>${WALLET.slice(22, -6)}<i>${WALLET.slice(-6)}</i></span></div>
@@ -223,10 +223,8 @@ function supportHtml() {
         <div class="grid2">
           <div><span class="k">Token</span><span class="v" id="dep-token"></span></div>
           <div><span class="k">Minimum</span><span class="v" id="dep-min"></span></div>
-          <div><span class="k">Address for</span><span class="v">SOL and USDC</span></div>
-          <div><span class="k">Network</span><span class="v">Solana</span></div>
         </div>
-        <p class="fine">Double-check every character before sending. Crypto transfers cannot be reversed. Only send on the Solana network.</p>
+        <p class="fine">Same address for SOL and USDC, on the Solana network. Double-check every character: crypto transfers cannot be reversed.</p>
       </div>
     </div></div></div>`;
 }
@@ -253,8 +251,6 @@ function wireSupport() {
     if (navigator.clipboard) navigator.clipboard.writeText(WALLET).then(done, done); else done();
   });
 }
-
-
 $('support-host').innerHTML = supportHtml();
 wireSupport();
 const toastEl = document.getElementById('toast');
