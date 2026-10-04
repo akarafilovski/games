@@ -77,24 +77,34 @@
   .coin.sol { background: linear-gradient(135deg, #9945FF, #14F195); color: #000; } .coin.usdc { background: #2775CA; }
   .dep .k { display: block; font-size: 13px; color: #848E9C; }
   .dep .v { display: block; font-weight: 700; font-size: 16px; color: #EAECEF; margin-top: 4px; }
-  .dep .dcard { background: var(--card); border-radius: 16px; padding: 12px 14px 12px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 0; }
-  .qrbox { display: grid; justify-items: center; margin-bottom: 10px; }
-  .qrbox img { width: 132px; height: 132px; border-radius: 14px; background: #fff; padding: 6px; }
-  .addrrow { display: flex; align-items: center; gap: 10px; margin-top: 2px; }
+  .dep .dcard { background: var(--card); border-radius: 16px; padding: 18px 16px 16px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .qrbox { display: grid; justify-items: center; margin-bottom: 20px; }
+  .qrbox img { width: clamp(110px, calc(100dvh - 560px), 190px); height: auto; aspect-ratio: 1; border-radius: 18px; background: #fff; padding: 10px; }
+  .addrrow { display: flex; align-items: center; gap: 12px; margin-top: 6px; }
   .addr3 { flex: 1; min-width: 0; container-type: inline-size; font: 600 15px/1.45 ui-monospace, 'SF Mono', Menlo, Consolas, monospace; color: #EAECEF; }
   .addr3 span { display: block; white-space: nowrap; overflow: hidden; font-size: min(18px, calc(100cqw / 13.9)); }
   .addr3 i { font-style: normal; color: var(--by); }
-  .cbtn { all: unset; cursor: pointer; flex: none; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: #363D47; color: #EAECEF; transition: transform .1s, background .2s; }
+  .cbtn { all: unset; cursor: pointer; flex: none; width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; background: #363D47; color: #EAECEF; transition: transform .1s, background .2s; }
   .cbtn svg { width: 22px; height: 22px; } .cbtn:active { transform: scale(.92); } .cbtn:focus-visible { outline: 2px solid var(--by); outline-offset: 2px; }
   .cbtn .i-ok { display: none; } .cbtn.ok { background: var(--by); color: #000; } .cbtn.ok .i-copy { display: none; } .cbtn.ok .i-ok { display: block; }
-  .redn { margin: 4px 0 0; font-size: 13px; line-height: 1.3; color: #F6465D; }
-  .dep hr { border: 0; border-top: 1px solid #3A424D; margin: 8px 0; width: 100%; }
-  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 12px; }
-  .grid2 .v { font-size: 14px; margin-top: 1px; }
-  .fine { margin: 8px 0 0; font-size: 12.5px; line-height: 1.4; color: #848E9C; }
-  .fixed { position: sticky; top: 0; z-index: 15; margin: 0 -16px; padding: max(8px, env(safe-area-inset-top)) 16px 10px; background: rgba(14,15,20,.94); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
-  .fixed .support .body { max-height: calc(100dvh - 92px); overflow-y: auto; }
-
+  .redn { margin: 10px 0 0; font-size: 13.5px; line-height: 1.35; color: #F6465D; }
+  .dep hr { border: 0; border-top: 1px solid #3A424D; margin: 16px 0; width: 100%; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 12px; }
+  .grid2 .v { font-size: 15px; }
+  .fine { margin: 16px 0 0; font-size: 13px; line-height: 1.45; color: #848E9C; }
+  .support.open { position: fixed; inset: 0; z-index: 100; margin: 0; border: 0; border-radius: 0; overflow-y: auto; -webkit-overflow-scrolling: touch;
+    padding-top: env(safe-area-inset-top); background: #14100d; display: flex; flex-direction: column; }
+  .support.open .head { flex: none; width: auto; margin: 6px 6px 0; }
+  .support.open .body { flex: 1; display: flex; flex-direction: column; justify-content: flex-start; padding: 6px 14px calc(16px + env(safe-area-inset-bottom)); }
+  .support.open .dep { width: min(100%, 520px); margin-inline: auto; }
+  html.support-open, html.support-open body { overflow: hidden; }
+  html.support-open .fixed { z-index: 200; }
+  .closelbl { display: none; font-size: 14px; font-weight: 700; color: var(--accent); padding: 8px 14px; border-radius: 999px; background: rgba(255,255,255,.1); }
+  .support.open .closelbl { display: inline-block; }
+  @media (max-height: 780px) {
+    .dep .dcard { padding: 14px 14px 12px; } .qrbox { margin-bottom: 12px; } .dep hr { margin: 10px 0; } .grid2 { gap: 8px 12px; } .fine { margin-top: 10px; } .redn { margin-top: 6px; }
+  }
+  .fixed { position: sticky; top: 0; z-index: 15; margin: 0 -16px; padding: max(8px, env(safe-area-inset-top)) 16px 10px; background: rgba(14,15,20,.94);  }
   footer { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 8px 18px; }
   footer a { color: var(--muted); }
 
@@ -200,19 +210,19 @@ document.querySelector('main').addEventListener('click', (e) => {
 const $ = (id) => document.getElementById(id);
 const ICON = { chev: '<svg class="chev" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>' };
 const TOKENS = {
-  sol: { coin: 'S', name: 'Solana', ticker: 'SOL', network: 'Solana', min: '0.001 SOL', qr: 'icons/qr-sol.png', note: 'SOL addresses are case sensitive.' },
-  usdc: { coin: '$', name: 'USD Coin', ticker: 'USDC', network: 'Solana', min: '0.001 USDC', qr: 'icons/qr-usdc.png', note: 'Send USDC on the Solana network. Case sensitive.' },
+  sol: { coin: 'S', name: 'Solana', ticker: 'SOL', network: 'Solana', min: '0.001 SOL', qr: 'icons/qr-sol.png', note: 'Please note that SOL addresses are case sensitive.' },
+  usdc: { coin: '$', name: 'USD Coin', ticker: 'USDC', network: 'Solana', min: '0.001 USDC', qr: 'icons/qr-usdc.png', note: 'USDC is sent on the Solana network. The address is case sensitive.' },
 };
 function supportHtml() {
   const tab = (id) => `<button type="button" class="tab" data-token="${id}" role="tab"><i class="coin ${id}">${TOKENS[id].coin}</i>${TOKENS[id].ticker}</button>`;
   const hl = (t) => `<b>${t}</b>`;
   return `<div class="support" id="support">
     <button type="button" class="head" aria-expanded="false"><span class="heart"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.2 2.7 4.5 6.3 4.5c2 0 3.7 1.1 4.6 2.7h2.2c.9-1.6 2.6-2.7 4.6-2.7 3.6 0 5.4 3.7 3.9 7.2C19.5 16.4 12 21 12 21z"/></svg></span>
-      <span class="t"><b>Support our work</b><span>Free, no ads. A tip keeps it running.</span></span>${ICON.chev}</button>
+      <span class="t"><b>Support our work</b><span>Free, no ads. A tip keeps it running.</span></span><span class="closelbl">Close</span>${ICON.chev}</button>
     <div class="body"><div class="dep">
       <div class="tabs" role="tablist">${tab('sol')}${tab('usdc')}</div>
       <div class="dcard">
-        <div class="qrbox"><img id="dep-qr" src="icons/qr-sol.png" alt="QR code of the wallet address" width="132" height="132"></div>
+        <div class="qrbox"><img id="dep-qr" src="icons/qr-sol.png" alt="QR code of the wallet address" width="190" height="190"></div>
         <div class="k">Wallet address</div>
         <div class="addrrow">
           <div class="addr3" title="${WALLET}"><span><i>${WALLET.slice(0, 6)}</i>${WALLET.slice(6, 22)}</span><span>${WALLET.slice(22, -6)}<i>${WALLET.slice(-6)}</i></span></div>
@@ -223,14 +233,27 @@ function supportHtml() {
         <div class="grid2">
           <div><span class="k">Token</span><span class="v" id="dep-token"></span></div>
           <div><span class="k">Minimum</span><span class="v" id="dep-min"></span></div>
+          <div><span class="k">Address for</span><span class="v">SOL and USDC</span></div>
+          <div><span class="k">Network</span><span class="v">Solana</span></div>
         </div>
-        <p class="fine">Same address for SOL and USDC, on the Solana network. Double-check every character: crypto transfers cannot be reversed.</p>
+        <p class="fine">Double-check every character before sending. Crypto transfers cannot be reversed. Only send on the Solana network.</p>
       </div>
     </div></div></div>`;
 }
 function wireSupport() {
   const root = $('support');
-  root.querySelector('.head').addEventListener('click', (e) => { const o = root.classList.toggle('open'); e.currentTarget.setAttribute('aria-expanded', String(o)); });
+  const head = root.querySelector('.head');
+  const host = root.parentElement;
+  const setOpen = (open) => {
+    // the bar keeps its place in the page while the sheet covers the screen
+    host.style.minHeight = open ? host.offsetHeight + 'px' : '';
+    root.classList.toggle('open', open);
+    document.documentElement.classList.toggle('support-open', open);
+    head.setAttribute('aria-expanded', String(open));
+    if (open) root.scrollTop = 0;
+  };
+  head.addEventListener('click', () => setOpen(!root.classList.contains('open')));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
   const pick = (id) => {
     const t = TOKENS[id];
     root.querySelectorAll('.tab').forEach((b) => { const on = b.dataset.token === id; b.classList.toggle('on', on); b.setAttribute('aria-selected', String(on)); });
